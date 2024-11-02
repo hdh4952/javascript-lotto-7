@@ -3,3 +3,5 @@ export const PURCHASE_AMOUNT_IS_DIVISIBLE_BY_LOTTO_PRICE = "로또 구입은 1,0
 export const WINNING_NUMBERS_OUT_OF_RANGE = "당첨 번호는 1 ~ 45 사이의 숫자만 입력 가능합니다.";
 export const WINNING_NUMBERS_LENGTH_INVALID = "당첨 번호는 6개의 숫자여야 합니다.";
 export const WINNING_NUMBERS_DUPLICATES_NOT_ALLOWED = "당첨 번호는 중복될 수 없습니다.";
+export const BONUS_NUMBER_OUT_OF_RANGE = "보너스 번호는 1 ~ 45 사이의 숫자만 입력 가능합니다.";
+export const BONUS_NUMBER_DUPLICATES_NOT_ALLOWED = "보너스 번호는 당첨 번호와 중복될 수 없습니다.";

@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { LOTTO_PRICE, PURCHASE_AMOUNT_INPUT_GUIDE, WINNING_NUMBERS_INPUT_GUIDE } from "./constant/constant.js";
+import { BONUS_NUMBER_INPUT_GUIDE, LOTTO_PRICE, PURCHASE_AMOUNT_INPUT_GUIDE, WINNING_NUMBERS_INPUT_GUIDE } from "./constant/constant.js";
 import CustomError from "./CustomError.js";
-import { PURCHASE_AMOUNT_IS_AVAILABLE_NUMBER, PURCHASE_AMOUNT_IS_DIVISIBLE_BY_LOTTO_PRICE, WINNING_NUMBERS_DUPLICATES_NOT_ALLOWED, WINNING_NUMBERS_LENGTH_INVALID, WINNING_NUMBERS_OUT_OF_RANGE } from "./constant/error-message.js";
+import { BONUS_NUMBER_DUPLICATES_NOT_ALLOWED, BONUS_NUMBER_OUT_OF_RANGE, PURCHASE_AMOUNT_IS_AVAILABLE_NUMBER, PURCHASE_AMOUNT_IS_DIVISIBLE_BY_LOTTO_PRICE, WINNING_NUMBERS_DUPLICATES_NOT_ALLOWED, WINNING_NUMBERS_LENGTH_INVALID, WINNING_NUMBERS_OUT_OF_RANGE } from "./constant/error-message.js";
 
 class Input {
   #input;
@@ -65,6 +65,30 @@ class Input {
   #hasUniqueElements(arr) {
     const set = new Set(arr);
     return arr.length === set.size;
+  }
+
+  static async readBonusNumber(winningNumbers) {
+    const rawInput = await MissionUtils.Console.readLineAsync(BONUS_NUMBER_INPUT_GUIDE);
+
+    try {
+      return new Input(rawInput).#parseBonusNumber(winningNumbers);
+    } catch (e) {
+      MissionUtils.Console.print(e.message);
+      return await this.readBonusNumber(winningNumbers);
+    }
+  }
+
+  #parseBonusNumber(winningNumbers) {
+    const bonusNumber = parseInt(this.#input);
+    if (!(1 <= bonusNumber && bonusNumber <= 45)) {
+      throw new CustomError(BONUS_NUMBER_OUT_OF_RANGE);
+    }
+
+    if (!this.#hasUniqueElements([...winningNumbers, bonusNumber])) {
+      throw new CustomError(BONUS_NUMBER_DUPLICATES_NOT_ALLOWED);
+    }
+
+    return bonusNumber;
   }
 }
 
