@@ -12,7 +12,13 @@ class Input {
 
   static async readPurchaseAmount() {
     const rawInput = await MissionUtils.Console.readLineAsync(PURCHASE_AMOUNT_INPUT_GUIDE);
-    return new Input(rawInput).#parsePurchaseAmount();
+    
+    try {
+      return new Input(rawInput).#parsePurchaseAmount();
+    } catch (e) {
+      MissionUtils.Console.print(e.message);
+      return await this.readPurchaseAmount();
+    }
   }
 
   #parsePurchaseAmount() {
