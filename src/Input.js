@@ -1,7 +1,7 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
-import { LOTTO_PRICE } from "./constant/constant";
-import CustomError from "./CustomError";
-import { PURCHASE_AMOUNT_IS_AVAILABLE_NUMBER, PURCHASE_AMOUNT_IS_DIVISIBLE_BY_LOTTO_PRICE } from "./constant/error-message";
+import { LOTTO_PRICE, PURCHASE_AMOUNT_INPUT_GUIDE } from "./constant/constant.js";
+import CustomError from "./CustomError.js";
+import { PURCHASE_AMOUNT_IS_AVAILABLE_NUMBER, PURCHASE_AMOUNT_IS_DIVISIBLE_BY_LOTTO_PRICE } from "./constant/error-message.js";
 
 class Input {
   #input;
@@ -11,7 +11,7 @@ class Input {
   }
 
   static async readPurchaseAmount() {
-    const rawInput = await MissionUtils.Console.readLineAsync();
+    const rawInput = await MissionUtils.Console.readLineAsync(PURCHASE_AMOUNT_INPUT_GUIDE);
     return new Input(rawInput).#parsePurchaseAmount();
   }
 
