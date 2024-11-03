@@ -18,6 +18,28 @@ class Lotto {
   print() {
     MissionUtils.Console.print(this.#numbers);
   }
+
+  getWinningRank(winningNumbers, bonusNumber) {
+    const correctCount = this.#numbers.filter(number => winningNumbers.includes(number)).length;
+    
+    if (correctCount === 6) {
+      return 1;
+    }
+    if (correctCount === 5 && winningNumbers.some(number => number === bonusNumber)) {
+      return 2;
+    }
+    if (correctCount === 5) {
+      return 3;
+    }
+    if (correctCount === 4) {
+      return 4;
+    }
+    if (correctCount === 3) {
+      return 5;
+    }
+
+    return -1;
+  }
 }
 
 export default Lotto;

@@ -9,6 +9,7 @@ class App {
     lotteryMachine.checkLottos();
     const winningNumbers = await Input.readWinningNumbers();
     const bonusNumber = await Input.readBonusNumber(winningNumbers);
+    lotteryMachine.checkEarningsRate(winningNumbers, bonusNumber);
   }
 }
 
